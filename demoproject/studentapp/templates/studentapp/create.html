@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock%}
+{% block stylesheet %}{% endblock%}
+{% block content %}
+
+<form action="" method="POST">
+{% csrf_token %}
+
+{{ form.as_p }}
+<button type="submit" class="btn btn-primary">Submit</button>
+<a href="{% url 'index' %}" class="btn btn-warning">Back To List</a>
+</form>
+
+{% endblock%}
