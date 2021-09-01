@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 # Create your models here.
-class student(models.Model):
+class Student(models.Model):
     GENDER_CHOICES=[('Male','Male'),('Female','Female'),]
 
     id=models.AutoField(primary_key=True)

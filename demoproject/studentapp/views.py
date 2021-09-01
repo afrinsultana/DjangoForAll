@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from studentapp.models import student
+from studentapp.models import Student
 from studentapp.forms import StudentForm
 
 from django.core.paginator import Paginator
@@ -11,7 +11,7 @@ def home(request):
 
 
 def index(request):
-    std=student.objects.order_by('-id')
+    std=Student.objects.order_by('-id')
     paginator=Paginator(std,8)
     page=request.GET.get('page')
     students=paginator.get_page(page)
@@ -28,6 +28,21 @@ def create_student(request):
         form=StudentForm()
 
     context={'form':form}
+    return render(request,'studentapp/create.html',context)
+
+def edit_student(request,id):
+    if request.method == "POST":
+       student=Student.objects.get(pk=id)
+       form=StudentForm(request.POST or None,instance=student)
+       if form.is_valid():
+           form.save()
+           return redirect('index')
+    else:
+        student=Student.objects.get(pk=id)
+        form=StudentForm(request.POST or None,instance=student)
+        
+
+    context={'form':form,'title':'edit'}
     return render(request,'studentapp/create.html',context)
 
 
